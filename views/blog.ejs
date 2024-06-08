@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog</title>
+    <style>
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px; /* Gap between cards */
+        }
+        .card {
+            flex: 1 1 calc(25% - 16px); /* Four cards per row with gap consideration */
+            max-width: calc(25% - 16px);
+        }
+        @media (max-width: 1200px) {
+            .card {
+                flex: 1 1 calc(33.33% - 16px); /* Three cards per row on smaller screens */
+                max-width: calc(33.33% - 16px);
+            }
+        }
+        @media (max-width: 900px) {
+            .card {
+                flex: 1 1 calc(50% - 16px); /* Two cards per row on even smaller screens */
+                max-width: calc(50% - 16px);
+            }
+        }
+        @media (max-width: 600px) {
+            .card {
+                flex: 1 1 100%; /* One card per row on smallest screens */
+                max-width: 100%;
+            }
+        }
+    </style>
+    <%- include('./partials/script') %>
+</head>
+<body>
+    <%- include('./partials/nav') %>
+    <div class="card-container p-8">
+        <% allBlogs.forEach(blogs => { %>
+        <div class="card max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <a href="#">
+                <img class="rounded-t-lg" src="<%= blogs.coverImage %>" alt="" />
+            </a>
+            <div class="p-5">
+                <a href="#">
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-white">
+                        <%= blogs.title %>
+                    </h5>
+                </a>
+                <a href="/blogs/allblogs/<%= blogs._id %>" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
+                    Read more
+                    <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+        <% }) %>
+    </div>
+</body>
+</html>
